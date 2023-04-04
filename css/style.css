@@ -10,14 +10,21 @@ body {
   background-position: center;
   background-size: cover;
 }
-.nav {
-  box-sizing: border-box;
+nav {
   width: 100%;
+  position: relative;
+}
+.nav {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  left: 10px;
   height: 50px;
   background-color: rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-radius: 10px;
 }
 li{
   list-style: none;
@@ -42,14 +49,24 @@ a {
   padding: 15px;
 }
 .dropdown {
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  left: 10px;
   display: none;
   color: #ffffff;
   background-color: rgba(255, 255, 255, 0.1);
-  width: 100%;
   padding: 15px;
+  padding-top: 0;
 }
-.open {
+.nav.open {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.dropdown.open {
   display: block;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 @media only screen and (max-width: 720px) {
   .nav ul {
