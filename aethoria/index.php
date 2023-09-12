@@ -16,6 +16,7 @@ if (!empty($_GET['delete'])) {
   $id = $_GET["delete"];
   $stmt->execute();
   $stmt->close();
+  echo mysqli_error();
 }
 $sql = "SELECT id, title, note, port FROM notes";
 $result = mysqli_query($conn, $sql);
