@@ -10,6 +10,16 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
 }
+if (!empty($_GET['title'])) {
+  $title = $_GET["title"];
+  $note = $_GET["note"];
+  $port = $_GET["port"];
+  $sql = "INSERT INTO `notes` (`id`, `title`, `note`, `port`) VALUES (NULL, ?, ?, ?); ";
+  $stmt = mysqli_prepare($conn, $sql);
+  mysqli_stmt_bind_param($stmt, "ssi", $title, $note, $port);
+  mysqli_stmt_execute($stmt);
+  mysqli_stmt_close($stmt);
+}
 if (!empty($_GET['delete'])) {
   $id = $_GET["delete"];
   $sql = "DELETE FROM notes WHERE id = ?";
