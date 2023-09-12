@@ -16,7 +16,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
   // output data of each row
   while($row = $result->fetch_assoc()) {
-    echo "<div><p>Title: " . $row["title"]. "</p> <p>Note: " . $row["note"]. "</p> <p>Port: " . $row["port"]. "</div>";
+    echo "<div><p>Title: " . $row["title"]. "</p> <p>Note: " . $row["note"]. "</p> <p>Port: " . $row["port"]. "<p/> </div>";
   }
 } else {
   echo "0 results";
