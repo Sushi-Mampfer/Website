@@ -12,8 +12,8 @@ if (!$conn) {
 }
 if (!empty($_GET['delete'])) {
   $stmt = $conn->prepare("DELETE FROM notes WHERE id=(id) VALUES (?)");
-  $stmt->bind_param("i", $id);
   $id = $_GET["delete"];
+  $stmt->bind_param("i", $id);
   $stmt->execute();
   $stmt->close();
   echo mysqli_error();
