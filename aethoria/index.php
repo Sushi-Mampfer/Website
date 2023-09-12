@@ -11,7 +11,7 @@ if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
 }
 if (!empty($_GET['delete'])) {
-  $sql = "DELETE FROM notes WHERE id= VALUES (?)";
+  $sql = "DELETE FROM notes WHERE id=?";
   $id = $_GET["delete"];
   $stmt = mysqli_prepare($conn, $sql);
   mysqli_stmt_bind_param($stmt, "i", $id);
