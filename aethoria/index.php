@@ -17,7 +17,7 @@ $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
   // output data of each row
   while($row = mysqli_fetch_assoc($result)) {
-  	echo "<div> <a href=\"index.php?delete=" . $row["id"] ."\">Delete</a>""<p>Title: " . $row["title"]. "</p> <p>Note: " . $row["note"]. "</p> <p>Port: " . $row["port"]. "</div>";
+  	echo "<div> <p>Title: " . $row["title"]. "</p> <p>Note: " . $row["note"]. "</p> <p>Port: " . $row["port"]. "</div>";
   }
 } else {
   echo "0 results";
