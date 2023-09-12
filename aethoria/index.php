@@ -1,4 +1,5 @@
 <?php
+echo "<link rel='stylesheet' href='style.css'>";
 $servername = "localhost";
 $username = "aethoria";
 $password = "Test1234!";
