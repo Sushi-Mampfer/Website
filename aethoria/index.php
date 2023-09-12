@@ -16,7 +16,7 @@ echo "<div> <form action=\"index.php\" method=\"GET\">
   <label for=\"notes\">Notiz:</label><br>
   <input type=\"text\" id=\"notes\" name=\"note\"><br>
   <label for=\"ports\">Port:</label><br>
-  <input type=\"number\" id=\"ports\" name=\"port\" min=\"1\" max=\"5\"><br>
+  <input type=\"number\" id=\"ports\" name=\"port\" min=\"1\" max=\"65535\"><br>
   <input type=\"submit\">
 </form>  </div>";
 if (!empty($_GET['title'])) {
