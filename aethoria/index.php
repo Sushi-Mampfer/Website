@@ -9,18 +9,18 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
-} 
-
+}
+if 
 $sql = "SELECT id, title, note, port FROM notes";
-$result = $conn->query($sql);
+$result = mysqli_query($conn, $sql);
 
-if ($result->num_rows > 0) {
+if (mysqli_num_rows($result) > 0) {
   // output data of each row
-  while($row = $result->fetch_assoc()) {
-    echo "<div> <p>Title: " . $row["title"]. "</p> <p>Note: " . $row["note"]. "</p> <p>Port: " . $row["port"]. "</div>";
+  while($row = mysqli_fetch_assoc($result)) {
+  	echo "<div> <a href=\"index.php?delete=" . $row["id"] ."\">Delete</a>""<p>Title: " . $row["title"]. "</p> <p>Note: " . $row["note"]. "</p> <p>Port: " . $row["port"]. "</div>";
   }
 } else {
   echo "0 results";
 }
-$conn->close();
+mysqli_close($conn);
 ?>
