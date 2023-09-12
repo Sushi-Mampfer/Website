@@ -11,7 +11,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
 }
-echo "<div> <form action=\"index.php\" method=\"GET\">
+echo "<div> <form action=\"index.php\" method=\"POST\">
   <label for=\"titles\">Titel:</label><br>
   <input type=\"text\" id=\"titles\" name=\"title\"><br>
   <label for=\"notes\">Notiz:</label><br>
@@ -20,10 +20,10 @@ echo "<div> <form action=\"index.php\" method=\"GET\">
   <input type=\"number\" id=\"ports\" name=\"port\" min=\"1\" max=\"65535\"><br>
   <input type=\"submit\">
 </form>  </div>";
-if (!empty($_GET['title'])) {
-  $title = $_GET["title"];
-  $note = $_GET["note"];
-  $port = $_GET["port"];
+if (!empty($_POST['title'])) {
+  $title = $_POST["title"];
+  $note = $_POST["note"];
+  $port = $_POST["port"];
   $sql = "INSERT INTO `notes` (`id`, `title`, `note`, `port`) VALUES (NULL, ?, ?, ?); ";
   $stmt = mysqli_prepare($conn, $sql);
   mysqli_stmt_bind_param($stmt, "ssi", $title, $note, $port);
