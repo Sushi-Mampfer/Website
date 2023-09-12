@@ -11,19 +11,11 @@ if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
 }
 if (!empty($_GET['delete'])) {
-  $id = $_GET["delete"]; // Get the ID to delete
-
-  // Prepare and execute the DELETE query
+  $id = $_GET["delete"];
   $sql = "DELETE FROM notes WHERE id = ?";
   $stmt = mysqli_prepare($conn, $sql);
   mysqli_stmt_bind_param($stmt, "i", $id);
-  
-  if (mysqli_stmt_execute($stmt)) {
-    echo "Record with ID $id has been deleted successfully.";
-  } else {
-    echo "Error deleting record: " . mysqli_error($conn);
-  }
-  
+  mysqli_stmt_execute($stmt);
   mysqli_stmt_close($stmt);
 }
 $sql = "SELECT id, title, note, port FROM notes";
