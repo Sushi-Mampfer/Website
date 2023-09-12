@@ -14,9 +14,9 @@ echo "<div> <form action=\"index.php\" method=\"GET\">
   <label for=\"titles\">Titel:</label><br>
   <input type=\"text\" id=\"titles\" name=\"title\"><br>
   <label for=\"notes\">Notiz:</label><br>
-  <input type=\"text\" id=\"notes\" name=\"note\">
+  <input type=\"text\" id=\"notes\" name=\"note\"><br>
   <label for=\"ports\">Port:</label><br>
-  <input type=\"number\" id="ports\" name=\"port\" min=\"1\" max=\"5\">
+  <input type=\"number\" id=\"ports\" name=\"port\" min=\"1\" max=\"5\">
 </form>  </div>";
 if (!empty($_GET['title'])) {
   $title = $_GET["title"];
