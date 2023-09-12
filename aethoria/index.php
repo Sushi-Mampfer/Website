@@ -17,7 +17,7 @@ if (!$conn) {
 //  $id = $_GET["delete"]
 //  $stmt->execute();
 //  $stmt->close();
-}
+//}
 $sql = "SELECT id, title, note, port FROM notes";
 $result = mysqli_query($conn, $sql);
 
