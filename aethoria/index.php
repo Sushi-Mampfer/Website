@@ -10,7 +10,13 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
 }
-
+if (!empty($_GET['delete'])) {
+  $stmt = $conn->prepare("DELETE FROM notes WHERE id=(id) VALUES (?)");
+  $stmt->bind_param("i", $id);
+  $id = $_GET["delete"]
+  $stmt->execute();
+  $stmt->close();
+}
 $sql = "SELECT id, title, note, port FROM notes";
 $result = mysqli_query($conn, $sql);
 
