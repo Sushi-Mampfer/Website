@@ -11,6 +11,7 @@ body {
 }
 .left > div {
     height: 50%;
+    overflow:scroll;
 }
 .right {
     width: 70%;
@@ -20,6 +21,7 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: repeat(auto-fill, 100px);
+    overflow:scroll;
 }
 .right > div {
     overflow:scroll;
