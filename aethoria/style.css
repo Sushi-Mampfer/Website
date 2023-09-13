@@ -1,6 +1,7 @@
 body {
     height: 100vh;
     display: flex;
+    flex-direction: row;
 }
 .left {
     width: 30%;
