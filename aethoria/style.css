@@ -3,6 +3,7 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: row;
+    background-color: #ffff00;
 }
 .left {
     width: 30%;
