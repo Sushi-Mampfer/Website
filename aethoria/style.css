@@ -1,4 +1,7 @@
-body {
-    display: inline-grid;
-    gap: 50px 50px;
+.left {
+    width: 30%;
+    float: left;
+}
+.left > div {
+    height: 50%;
 }
