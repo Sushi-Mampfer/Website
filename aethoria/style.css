@@ -1,10 +1,12 @@
 body {
     height: 100vh;
+    display: flex;
 }
 .left {
     width: 30%;
     float: left;
     height: 100%;
+    flex: 1;
 }
 .left > div {
     height: 50%;
@@ -13,4 +15,5 @@ body {
     width: 70%;
     float: left;
     height: 100%;
+    flex: 2;
 }
