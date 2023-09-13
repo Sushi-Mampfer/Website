@@ -1,7 +1,13 @@
 .left {
     width: 30%;
     float: left;
+    height: 100%;
 }
 .left > div {
     height: 50%;
+}
+.right {
+    width: 70%;
+    float: left;
+    height: 100%;
 }
