@@ -11,7 +11,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
 }
-echo "<div> <form action=\"index.php\" method=\"POST\">
+echo "<div class=\"left\"> <div> <form action=\"index.php\" method=\"POST\">
   <label for=\"titles\">Titel:</label><br>
   <input type=\"text\" id=\"titles\" name=\"title\"><br>
   <label for=\"notes\">Notiz:</label><br>
@@ -19,7 +19,7 @@ echo "<div> <form action=\"index.php\" method=\"POST\">
   <label for=\"ports\">Port:</label><br>
   <input type=\"number\" id=\"ports\" name=\"port\" min=\"1\" max=\"65535\"><br>
   <input type=\"submit\">
-</form>  </div>";
+</form>  </div> <div> <p>1234</p> <p>1234</p> <p>1234</p> <p>1234</p> <p>1234</p> <p>1234</p></div>";
 if (!empty($_POST['title'])) {
   $title = $_POST["title"];
   $note = $_POST["note"];
@@ -44,7 +44,7 @@ $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
   // output data of each row
   while($row = mysqli_fetch_assoc($result)) {
-    echo "<div> <a href=\"index.php?delete=" . $row["id"] . "\" >Delete</a> <p>Titel: " . $row["title"]. "</p> <p>Notiz: " . $row["note"]. "</p> <p>Port:" . $row["port"]. "</p> </div>";
+    echo "<div class=\"right\"> <a href=\"index.php?delete=" . $row["id"] . "\" >Delete</a> <p>Titel: " . $row["title"]. "</p> <p>Notiz: " . $row["note"]. "</p> <p>Port:" . $row["port"]. "</p> </div>";
   }
 } else {
   echo "0 results";
