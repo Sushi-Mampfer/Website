@@ -19,7 +19,7 @@ echo "<div class=\"left\"> <div> <form action=\"index.php\" method=\"POST\">
   <label for=\"ports\">Port:</label><br>
   <input type=\"number\" id=\"ports\" name=\"port\" min=\"1\" max=\"65535\"><br>
   <input type=\"submit\">
-</form>  </div> <div> <p>1234</p> <p>1234</p> <p>1234</p> <p>1234</p> <p>1234</p> <p>1234</p></div>";
+</form>  </div> <div> <p>1234</p> <p>1234</p> <p>1234</p> <p>1234</p> <p>1234</p> <p>1234</p></div></div>";
 if (!empty($_POST['title'])) {
   $title = $_POST["title"];
   $note = $_POST["note"];
@@ -43,9 +43,11 @@ $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {
   // output data of each row
+  <div class=\"right\">
   while($row = mysqli_fetch_assoc($result)) {
-    echo "<div class=\"right\"> <a href=\"index.php?delete=" . $row["id"] . "\" >Delete</a> <p>Titel: " . $row["title"]. "</p> <p>Notiz: " . $row["note"]. "</p> <p>Port:" . $row["port"]. "</p> </div>";
+    echo "<div> <a href=\"index.php?delete=" . $row["id"] . "\" >Delete</a> <p>Titel: " . $row["title"]. "</p> <p>Notiz: " . $row["note"]. "</p> <p>Port:" . $row["port"]. "</p> </div>";
   }
+  </div>
 } else {
   echo "0 results";
 }
