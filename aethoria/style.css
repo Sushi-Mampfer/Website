@@ -26,6 +26,7 @@ body {
     overflow:scroll;
 }
 .right > div {
+    border-radius: 10px;
     overflow:scroll;
     background-color: rgba(0, 0, 0, 0.61);
     backdrop-filter: blur(5px);
