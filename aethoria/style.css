@@ -19,5 +19,8 @@ body {
     flex: 2;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 100px;
+    grid-template-rows: repeat(auto-fill, 100px);
+}
+.right > div {
+    overflow:scroll;
 }
