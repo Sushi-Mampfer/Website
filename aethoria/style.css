@@ -58,3 +58,10 @@ body {
     margin: 10px;
     padding: 5px;
 }
+* {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+::-webkit-scrollbar {
+    display: none;
+  }
