@@ -59,3 +59,6 @@ body {
     margin: 10px;
     padding: 5px;
 }
+.right > div > p {
+    word-wrap: break-word;
+}
