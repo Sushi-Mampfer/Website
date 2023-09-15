@@ -27,6 +27,7 @@ body {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: repeat(auto-fill, 200px);
     overflow:scroll;
+    padding-bottom: 15px;
 }
 .right > div {
     min-height: 170px;
