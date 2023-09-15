@@ -15,7 +15,7 @@ body {
     flex: 1;
 }
 .left > div {
-    height: 50%;
+    height: 50% - 30px;
     overflow:scroll;
 }
 .right {
