@@ -29,6 +29,7 @@ body {
     overflow:scroll;
 }
 .right > div {
+    min-width: 200px;
     color: #999;
     border-radius: 10px;
     overflow: scroll;
