@@ -29,7 +29,7 @@ body {
     overflow:scroll;
 }
 .right > div {
-    min-height: 185px;
+    min-height: 170px;
     color: #999;
     border-radius: 10px;
     overflow: scroll;
