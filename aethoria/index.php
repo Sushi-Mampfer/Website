@@ -11,7 +11,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
 }
-echo "<div class=\"left\"> <div> <form action=\"index.php\" method=\"POST\">
+echo "<div class=\"left\"> <div class=\"top\"> <form action=\"index.php\" method=\"POST\">
   <label for=\"titles\">Titel:</label><br>
   <input type=\"text\" id=\"titles\" name=\"title\"><br>
   <label for=\"notes\">Notiz:</label><br>
@@ -19,7 +19,7 @@ echo "<div class=\"left\"> <div> <form action=\"index.php\" method=\"POST\">
   <label for=\"ports\">Port:</label><br>
   <input type=\"number\" id=\"ports\" name=\"port\" min=\"1\" max=\"65535\"><br>
   <input type=\"submit\">
-</form>  </div> <div> <p>1234</p> <p>1234</p> <p>1234</p> <p>1234</p> <p>1234</p> <p>1234</p></div></div>";
+</form>  </div> <div class=\"bottom\"> <p>1234</p> <p>1234</p> <p>1234</p> <p>1234</p> <p>1234</p> <p>1234</p></div></div>";
 if (!empty($_POST['title'])) {
   $title = $_POST["title"];
   $note = $_POST["note"];
