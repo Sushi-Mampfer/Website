@@ -62,3 +62,11 @@ body {
 .right > div > p {
     word-wrap: break-word;
 }
+* {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+    width: 0.01em;
+}
+
