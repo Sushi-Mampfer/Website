@@ -39,6 +39,7 @@ body {
     -webkit-backdrop-filter: blur(5px);
     margin: 10px;
     padding: 20px;
+    position: relativ;
 }
 .righttop > a{
     color: #999;
@@ -71,6 +72,11 @@ body {
 }
 .right > div > p {
     word-wrap: break-word;
+}
+.port {
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 * {
     scrollbar-width: none;
