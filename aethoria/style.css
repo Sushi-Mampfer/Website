@@ -40,9 +40,10 @@ body {
     margin: 10px;
     padding: 5px;
 }
-.right > div > a{
+.righttop a{
     color: #999;
     text-decoration: none;
+    float: right;
 }
 .righttop > * {
     display: inline-block;
