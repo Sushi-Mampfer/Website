@@ -47,7 +47,7 @@ body {
 }
 .righttop > * {
     display: inline-block;
-    vertical-algin: top;
+    vertical-align: top;
 }
 .top {
     color: #999;
