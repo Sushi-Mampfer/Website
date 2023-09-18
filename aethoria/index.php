@@ -13,9 +13,9 @@ if (!$conn) {
 }
 echo "<div class=\"left\"> <div class=\"top\"> <form action=\"index.php\" method=\"POST\">
   <label for=\"titles\">Titel:</label><br>
-  <input type=\"text\" id=\"titles\" name=\"title\"><br>
+  <input maxlength=\"255\" type=\"text\" id=\"titles\" name=\"title\"><br>
   <label for=\"notes\">Notiz:</label><br>
-  <input type=\"text\" id=\"notes\" name=\"note\"><br>
+  <input maxlength=\"1000\" type=\"text\" id=\"notes\" name=\"note\"><br>
   <label for=\"ports\">Port:</label><br>
   <input type=\"number\" id=\"ports\" name=\"port\" min=\"1\" max=\"65535\"><br>
   <input type=\"submit\">
@@ -45,7 +45,7 @@ if (mysqli_num_rows($result) > 0) {
   // output data of each row
   echo "<div class=\"right\">";
   while($row = mysqli_fetch_assoc($result)) {
-    echo "<div> <div class=\"righttop\"><p>" . $row["title"]. "</p> <a href=\"index.php?delete=" . $row["id"] . "\" >Delete</a> </div> <p>" . $row["note"]. "</p> <p>Port:" . $row["port"]. "</p> </div>";
+    echo "<div> <div class=\"righttop\"><p>" . $row["title"]. "</p> <a href=\"index.php?delete=" . $row["id"] . "\" >Delete</a> </div> <p>" . $row["note"]. "</p> <p class=\"port\">Port:" . $row["port"]. "</p> </div>";
   }
   echo "</div>";
 } else {
