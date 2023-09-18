@@ -45,10 +45,10 @@ body {
     text-decoration: none;
     float: right;
 }
-.righttop > * {
+/* .righttop > * {
     display: inline-block;
     vertical-align: top;
-}
+} */
 .top {
     color: #999;
     border-radius: 10px;
