@@ -44,6 +44,10 @@ body {
     color: #999;
     text-decoration: none;
 }
+.righttop > * {
+    display: inline-block;
+    vertical-algin: top;
+}
 .top {
     color: #999;
     border-radius: 10px;
@@ -71,5 +75,5 @@ body {
     -ms-overflow-style: none;
 }
 ::-webkit-scrollbar {
-    width: 0.01em;
+    width: 0em;
 }
