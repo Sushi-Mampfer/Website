@@ -46,23 +46,18 @@ if (mysqli_num_rows($result) > 0) {
   echo "<div class=\"right\">";
   while($row = mysqli_fetch_assoc($result)) {
     echo '<div>';
-        echo '<div class="righttop">';
-        echo '<p>' . $row["title"] . '</p>';
-        echo '<a href="index.php?delete=' . $row["id"] . '">Delete</a>';
-        echo '</div>';
-        echo '<p>' . $row["note"] . '</p>';
+    echo '<div class="righttop">';
+    echo '<p>' . $row["title"] . '</p>';
+    echo '<a href="index.php?delete=' . $row["id"] . '">Delete</a>';
+    echo '</div>';
+    echo '<p>' . $row["note"] . '</p>';
         
-        // Check if 'port' is not zero
-        if ($row["port"] != 0) {
-            echo '<p class="port">Port:' . $row["port"] . '</p>';
-        }
-        
-        echo '</div>';
-    } else {
-        echo 'No data available.';
+    // Check if 'port' is not zer
+    if ($row["port"] != 0) {
+        echo '<p class="port">Port:' . $row["port"] . '</p>';
     }
-  }
-  echo "</div>";
+    
+    echo '</div>';
 } else {
   echo "0 results";
 }
