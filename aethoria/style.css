@@ -68,6 +68,7 @@ body {
 }
 .note {
     word-wrap: break-word;
+    overflow: scroll;
     height: auto;
     width: 221px;
 }
