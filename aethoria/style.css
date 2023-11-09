@@ -23,7 +23,7 @@ body {
     width: 80%;
     float: left;
     height: calc(100% - 15px);
-    flex: 2;
+    flex: 4;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: repeat(auto-fill, 200px);
