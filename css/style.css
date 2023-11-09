@@ -3,8 +3,9 @@ body {
 	background-position: center;
 	background-size: cover;
 	height: 1vh;
+	width: 1vw;
 }
-nav {
+header {
 	margin: 10px;
 	padding: 20px;
 	width: calc(100% - 60px);
