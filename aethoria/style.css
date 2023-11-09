@@ -73,8 +73,7 @@ body {
 .note {
     word-wrap: break-word;
     overflow: scroll;
-    height: auto;
-    width: 221px;
+    width: calc(100% - 65px);
     height: calc(100% - 30px);
     line-height: normal;
 }
