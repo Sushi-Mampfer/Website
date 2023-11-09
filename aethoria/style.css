@@ -53,7 +53,7 @@ body {
 .top {
     color: #999;
     border-radius: 10px;
-    background-color: rgba(0, 0, 0, 0.15);
+    background-color: rgba(0, 0, 0, 0);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     margin: 10px;
@@ -75,7 +75,7 @@ body {
     overflow: scroll;
     height: auto;
     width: 221px;
-    height: 100%;
+    height: calc(100% - 30px);
     line-height: normal;
 }
 .port {
