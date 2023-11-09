@@ -52,7 +52,7 @@ if (mysqli_num_rows($result) > 0) {
     echo '</div>';
     echo '<p>' . $row["note"] . '</p>';
         
-    // Check if 'port' is not zer
+    // Check if 'port' is not zero
     if ($row["port"] != 0) {
         echo '<p class="port">Port:' . $row["port"] . '</p>';
     }
@@ -60,7 +60,7 @@ if (mysqli_num_rows($result) > 0) {
     echo '</div>';
 }
 } else {
-  echo "0 results";
+  echo "";
 }
 
 mysqli_close($conn);
