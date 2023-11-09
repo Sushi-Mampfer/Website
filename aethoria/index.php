@@ -50,7 +50,7 @@ if (mysqli_num_rows($result) > 0) {
     	echo '<p>' . $row["title"] . '</p>';
 		echo '<a href="index.php?delete=' . $row["id"] . '">Delete</a>';
     	echo '</div>';
-    	echo '<p>' . $row["note"] . '</p>';
+    	echo '<p class="note">' . $row["note"] . '</p>';
     // Check if 'port' is not zero
     if ($row["port"] != 0) {
         echo '<p class="port">Port:' . $row["port"] . '</p>';
