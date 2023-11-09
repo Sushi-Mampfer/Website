@@ -30,7 +30,7 @@ body {
     min-height: 140px;
     color: #999;
     border-radius: 10px;
-    overflow: scroll;
+    overflow: auto;
     background-color: rgba(0, 0, 0, 0.15);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
