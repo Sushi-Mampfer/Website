@@ -10,7 +10,7 @@ body {
     margin: 0;
 }
 .left {
-    width: 30%;
+    width: 20%;
     float: left;
     height: 100%;
     flex: 1;
