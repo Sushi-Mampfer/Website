@@ -55,6 +55,7 @@ if (mysqli_num_rows($result) > 0) {
     if ($row["port"] != 0) {
         echo '<p class="port">Port:' . $row["port"] . '</p>';
     }
+    
 	echo '</div>';
 }
 } else {

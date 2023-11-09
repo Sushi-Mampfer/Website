@@ -20,7 +20,7 @@ body {
     overflow:scroll;
 }
 .right {
-    width: 70%;
+    width: 80%;
     float: left;
     height: calc(100% - 15px);
     flex: 2;
