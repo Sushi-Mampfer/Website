@@ -27,7 +27,7 @@ body {
     overflow:scroll;
 }
 .right > div {
-    width: calc(100% - 20px);
+    width: calc(100% - 60px);
     min-height: 140px;
     color: #999;
     border-radius: 10px;
