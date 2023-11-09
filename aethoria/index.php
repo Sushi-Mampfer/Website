@@ -19,7 +19,7 @@ echo "<div class=\"left\"> <div class=\"top\"> <form action=\"index.php\" method
 	<label for=\"ports\">Port:</label><br>
 	<input type=\"number\" id=\"ports\" name=\"port\" min=\"1\" max=\"65535\"><br>
 	<input type=\"submit\">
-</form>  </div> <div class=\"bottom\"> <p>1234</p> <p>1234</p> <p>1234</p> <p>1234</p> <p>1234</p> <p>1234</p></div></div>";
+	</form>  </div> <div class=\"bottom\"> <p>1234</p> <p>1234</p> <p>1234</p> <p>1234</p> <p>1234</p> <p>1234</p></div></div>";
 if (!empty($_POST['title'])) {
 	$title = $_POST["title"];
 	$note = $_POST["note"];
