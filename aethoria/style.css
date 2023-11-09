@@ -37,6 +37,9 @@ body {
     padding: 20px;
     position: relative;
 }
+.righttop > p {
+    width: 221px;
+}
 .righttop > a{
     color: #999;
     text-decoration: none;
