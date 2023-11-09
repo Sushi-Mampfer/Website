@@ -20,7 +20,7 @@ body {
 .right {
     width: 80%;
     float: left;
-    height: calc(100% - 15px);
+    height: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: repeat(auto-fill, calc(100% / 4));
