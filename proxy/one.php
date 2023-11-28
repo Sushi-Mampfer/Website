@@ -19,16 +19,14 @@ if(isset($_REQUEST['url'])&&!empty($_REQUEST['url'])){
   loadPage($url,$encode,$full,$fixhref);
 }
 else{
-  ?>
-  <form method="get" action="<?=$_SERVER['PHP_SELF']?>">
+  echo \"<form method="get" action="<?=$_SERVER['PHP_SELF']?>">
     <input type="text" name="url" style="width:1000px" /><br/>
     Proxy full resources <input type="checkbox" name="full" value="yes" <?=is_dir($TEMP_DIR)?'':'disabled="disabled"'?>/>
     Change encoding <input type="checkbox" name="encode" value="yes" checked="checked"/>
     Fix hrefs <input type="checkbox" name="fixhref" value="yes" checked="checked"/><br/>
     <input type="submit" value="GO"/>
     <button tabIndex="-1" onclick="if(confirm('Sure?')==true){window.location.href='?clear=clear';} return false;">Clear all cookies</button>
-  </form>
-  <?
+  </form>\";
 }
 
 function loadPage($targetUrl,$encode,$full,$fixhref){
