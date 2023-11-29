@@ -1,158 +1,203 @@
 <?php
-$TEMP_DIR='temp';
-if(!file_exists ($TEMP_DIR)){
-  mkdir("$TEMP_DIR", 0777, true);
-}
-error_reporting(0);
-if(isset($_REQUEST['clear'])&&$_REQUEST['clear']=='clear'){
-  clearTemp(true);
-  header('Location: '.$_SERVER['PHP_SELF']);
-  die();
-}else{
-  clearTemp(false);
-}
-if(isset($_REQUEST['url'])&&!empty($_REQUEST['url'])){
-  $url = $_REQUEST['url'];
-  $encode=(isset($_REQUEST['encode'])&&$_REQUEST['encode']=='yes')?'yes':'no';
-  $full=(isset($_REQUEST['full'])&&$_REQUEST['full']=='yes')?'yes':'no';
-  $fixhref=(isset($_REQUEST['fixhref'])&&$_REQUEST['fixhref']=='yes')?'yes':'no';
-  loadPage($url,$encode,$full,$fixhref);
-}
-else{
-  echo \"<form method="get" action="<?=$_SERVER['PHP_SELF']?>">
-    <input type="text" name="url" style="width:1000px" /><br/>
-    Proxy full resources <input type="checkbox" name="full" value="yes" <?=is_dir($TEMP_DIR)?'':'disabled="disabled"'?>/>
-    Change encoding <input type="checkbox" name="encode" value="yes" checked="checked"/>
-    Fix hrefs <input type="checkbox" name="fixhref" value="yes" checked="checked"/><br/>
-    <input type="submit" value="GO"/>
-    <button tabIndex="-1" onclick="if(confirm('Sure?')==true){window.location.href='?clear=clear';} return false;">Clear all cookies</button>
-  </form>\";
-}
 
-function loadPage($targetUrl,$encode,$full,$fixhref){
-  global $TEMP_DIR;
-  $localHttpProtocol=(isset($_SERVER['HTTPS'])&&$_SERVER['HTTPS']!='off')?'https://':'http://';
-  //  Prepend http protocol if not exists
-  if(!preg_match("/^(?:https?:\\/\\/).+/i",$targetUrl)){
-    $targetUrl='http://'.$targetUrl;
-  }
-  //  Remove duplicated '/'
-  $targetUrl=preg_replace("/([^:\\/]+?)(\\/\\/+)/i","$1/",$targetUrl);
-  //  Figure out local and target urls
-  preg_match("/^(?:https?:\\/\\/)(?:.+\\/|.+)/i",$targetUrl,$basicTargetUrlMatch);
-  $basicTargetUrl=$basicTargetUrlMatch[0];
-  preg_match("/^(?:https?:\\/\\/)((?:(?!\\/).)+)[\\/]?/i",$basicTargetUrl,$veryBasicTargetUrlMatch);
-  $veryBasicTargetLocalUrl=$veryBasicTargetUrlMatch[1];
-  preg_match("/^(?:https?:\\/\\/)(?:.+\\/|.+)/i",$localHttpProtocol.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'],$basicLocalUrlMatch);
-  $basicLocalUrl=$basicLocalUrlMatch[0];
+/*
+ * Place here any hosts for which we are to be a proxy -
+ * e.g. the host on which the J2EE APIs we'll be proxying are running
+ * */
+@require_once('config.php');
+$ALLOWED_HOSTS = array();
+if(isset($SETTING_ALLOWED_HOSTS))
+    $ALLOWED_HOSTS = $SETTING_ALLOWED_HOSTS; # Override with setting from config.php
 
-  //  Get original html view
-  $cookieFile=$TEMP_DIR.'/'.'CURLCOOKIE_'.urlencode($veryBasicTargetLocalUrl).".txt";
-  //$UAIE = 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; SLCC1; .NET CLR 2.0.50727; .NET CLR 3.0.04506; .NET CLR 3.5.21022; .NET CLR 1.0.3705; .NET CLR 1.1.4322)';
-  $UAChrome='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.96 Safari/537.36';
-  $ch = curl_init();
-  curl_setopt($ch,CURLOPT_URL, $targetUrl);
-  curl_setopt($ch,CURLOPT_FOLLOWLOCATION,1);
-  curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-  curl_setopt($ch,CURLOPT_USERAGENT,$UAChrome);
-  curl_setopt($ch,CURLOPT_COOKIEFILE,$cookieFile);
-  curl_setopt($ch,CURLOPT_COOKIEJAR,$cookieFile);
-  //curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-  //curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-  $html = curl_exec ($ch);
-  curl_close($ch);
+/**
+ * AJAX Cross Domain (PHP) Proxy 0.8
+ *    by Iacovos Constantinou (http://www.iacons.net)
+ * 
+ * Released under CC-GNU GPL
+ */
 
-  if($full=='yes'){
-    //  Fix full resources
-    $resPattern="/<.+?(?:src=|href=|url)['\"\\(]?((?:(?![>'\"]).)*?\\.(?:jpg|jpeg|png|gif|bmp|ico|js|css))['\"\\)]?.*?(?:\\/>|>)/i";
-    preg_match_all($resPattern,$html,$matchReses);
-    for($i=0;$i<count($matchReses[0]);$i++){
-      if(strlen($matchReses[1][$i])<=0){
+/**
+ * Enables or disables filtering for cross domain requests.
+ * Recommended value: true
+ */
+define( 'CSAJAX_FILTERS', true );
+
+/**
+ * If set to true, $valid_requests should hold only domains i.e. a.example.com, b.example.com, usethisdomain.com
+ * If set to false, $valid_requests should hold the whole URL ( without the parameters ) i.e. http://example.com/this/is/long/url/
+ * Recommended value: false (for security reasons - do not forget that anyone can access your proxy)
+ */
+define( 'CSAJAX_FILTER_DOMAIN', true );
+
+/**
+ * Set debugging to true to receive additional messages - really helpful on development
+ */
+define( 'CSAJAX_DEBUG', true );
+
+/**
+ * A set of valid cross domain requests
+ */
+/*$valid_requests = array(
+	'localhost'
+);*/
+$valid_requests = $ALLOWED_HOSTS;
+
+/* * * STOP EDITING HERE UNLESS YOU KNOW WHAT YOU ARE DOING * * */
+
+// identify request headers
+$request_headers = array( );
+$setContentType = true;
+$isMultiPart = false;
+foreach ( $_SERVER as $key => $value ) {
+    if(preg_match('/Content.Type/i', $key)){
+        $setContentType = false;
+        $content_type = explode(";", $value)[0];
+        $isMultiPart = preg_match('/multipart/i', $content_type);
+        $request_headers[] = "Content-Type: ".$content_type;
         continue;
-      }
-      $newResPath=downloadToTemp($matchReses[1][$i],$basicTargetUrl,$TEMP_DIR,$basicLocalUrl);
-      $html=str_replace($matchReses[0][$i],str_replace($matchReses[1][$i],$newResPath,$matchReses[0][$i]),$html);
     }
-  }
-
-  if($fixhref=='yes'){
-    //  Fix href for web links
-    $hrefPattern="/<.+?(?:src=|href=|action=)['\"]?((?!(?:(?:https?:)?\\/\\/)|javascript:)(?:(?![>'\"]).)*)['\"]?.*?(?:\\/>|>)/i";
-    preg_match_all($hrefPattern,$html,$hrefMatches);
-    for($i=0;$i<count($hrefMatches[0]);$i++){
-      if(strlen($hrefMatches[1][$i])<=0){
-        continue;
-      }
-      $html=str_replace($hrefMatches[0][$i],str_replace($hrefMatches[1][$i],$basicTargetUrl.'/'.$hrefMatches[1][$i],$hrefMatches[0][$i]),$html);
-    }
-  }
-
-  //  Add onclick method for href to avoid jumping out
-  $html=preg_replace('/href=/','onclick="window.location.href=\''.$localHttpProtocol.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?url=\'+escape(this.href)+\'&encode='.$encode.'\'+\'&fixhref='.$fixhref.'\'+\'&full='.$full.'\';return false;" href=',$html);
-
-  //  Output html view
-  header('Content-Security-Policy: '.'upgrade-insecure-requests');
-  echo '<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">';
-  echo '<div onclick="window.open(\''.$targetUrl.'\');" style="width:50%;height:10px;background:red;position:fixed;top:0;z-index:1000000;left:0"></div>';
-  echo '<div onclick="window.location.href=\''.$localHttpProtocol.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'\';" style="width:50%;height:10px;background:blue;position:fixed;top:0;z-index:1000000;left:50%"></div>';
-  echo $encode=='yes'?changeEncoding($html):$html;
+	if ( substr( $key, 0, 5 ) == 'HTTP_' ) {
+		$headername = str_replace( '_', ' ', substr( $key, 5 ) );
+		$headername = str_replace( ' ', '-', ucwords( strtolower( $headername ) ) );
+		if ( !in_array( $headername, array( 'Host', 'X-Proxy-Url' ) ) ) {
+			$request_headers[] = "$headername: $value";
+		}
+	}
 }
 
-function downloadToTemp($fileUrl,$basicTargetUrl,$tempDir,$basicLocalUrl){
-  $needPrepend=false;
-  $localHttpProtocol=(isset($_SERVER['HTTPS'])&&$_SERVER['HTTPS']!='off')?'https://':'http://';
-  if(preg_match("/^(?:\\/\\/).+/i",$fileUrl)){
-    $fileUrl='http:'.$fileUrl;
-  }else if(!preg_match("/^(?:https?:\\/\\/).+/i",$fileUrl)){
-    $needPrepend=true;
-    //$fileUrl=$basicTargetUrl.'/'.$fileUrl;
-  }
-  $splitedUrl=explode(".",$fileUrl);
-  $ext=$splitedUrl[count($splitedUrl)-1];
-  do{
-    $tempFilename = rand(0,100000).'.'.$ext;
-  }while(file_exists($tempFilename));
-  if($needPrepend){
-    do{
-      $attemptFileUrl=$basicTargetUrl.'/'.$fileUrl;
-      $downloadedFile=file_get_contents(html_entity_decode($attemptFileUrl));
-      $basicTargetUrl=substr($basicTargetUrl,0,strrpos($basicTargetUrl,"/"));
-    }while(empty($downloadedFile)&&!preg_match("/^(?:https?:\\/\\/).+?/i",$basicTargetUrl));
-  }else{
-    $downloadedFile=file_get_contents(html_entity_decode($fileUrl));
-  }
-  if(!empty($downloadedFile)){
-    $newFileUrl=$basicLocalUrl.'/'.$tempDir.'/'.$tempFilename;
-    file_put_contents($tempDir.'/'.$tempFilename,$downloadedFile);
-    return $newFileUrl;
-  }else{
-    return $fileUrl;
-  }
+if($setContentType)
+    $request_headers[] = "Content-Type: application/json";
+
+// identify request method, url and params
+$request_method = $_SERVER['REQUEST_METHOD'];
+if ( 'GET' == $request_method ) {
+	$request_params = $_GET;
+} elseif ( 'POST' == $request_method ) {
+	$request_params = $_POST;
+	if ( empty( $request_params ) ) {
+		$data = file_get_contents( 'php://input' );
+		if ( !empty( $data ) ) {
+			$request_params = $data;
+		}
+	}
+} elseif ( 'PUT' == $request_method || 'DELETE' == $request_method ) {
+	$request_params = file_get_contents( 'php://input' );
+} else {
+	$request_params = null;
 }
 
-function clearTemp($clearCookies){
-  global $TEMP_DIR;
-  $dirTemp=opendir($TEMP_DIR);
-  while ($file=readdir($dirTemp)) {
-    if($file!="." && $file!="..")
-    {
-      if(strpos($file,"CURLCOOKIE_")!==false && !$clearCookies)
-      continue;
-      try{
-        $fullpath=$TEMP_DIR."/".$file;
-        unlink($fullpath);
-      }catch(Exception $ee){}
-      }
-    }
-  }
+// Get URL from `csurl` in GET or POST data, before falling back to X-Proxy-URL header.
+if ( isset( $_REQUEST['csurl'] ) ) {
+    $request_url = urldecode( $_REQUEST['csurl'] );
+} else if ( isset( $_SERVER['HTTP_X_PROXY_URL'] ) ) {
+    $request_url = urldecode( $_SERVER['HTTP_X_PROXY_URL'] );
+} else {
+    header( $_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
+    header( 'Status: 404 Not Found' );
+    $_SERVER['REDIRECT_STATUS'] = 404;
+    exit;
+}
 
-  function changeEncoding($text){
-    $encodeType=mb_detect_encoding($text,array('UTF-8','ASCII','GBK'));
-    if ($encodeType=='UTF-8') {
-      return $text;  //No need to change
-    } else {
-      //return iconv($encodeType,"UTF-8//ignore",$text);
-      return mb_convert_encoding($text,"UTF-8",$encodeType);  //Change to UTF-8
+$p_request_url = parse_url( $request_url );
+
+// csurl may exist in GET request methods
+if ( is_array( $request_params ) && array_key_exists('csurl', $request_params ) )
+	unset( $request_params['csurl'] );
+
+// ignore requests for proxy :)
+if ( preg_match( '!' . $_SERVER['SCRIPT_NAME'] . '!', $request_url ) || empty( $request_url ) || count( $p_request_url ) == 1 ) {
+	csajax_debug_message( 'Invalid request - make sure that csurl variable is not empty' );
+	exit;
+}
+
+// check against valid requests
+if ( CSAJAX_FILTERS ) {
+	$parsed = $p_request_url;
+	if ( CSAJAX_FILTER_DOMAIN ) {
+		if ( !in_array( $parsed['host'], $valid_requests ) ) {
+			csajax_debug_message( 'Invalid domain - ' . $parsed['host'] . ' is not included in valid request domains' );
+			exit;
+		}
+	} else {
+		$check_url = isset( $parsed['scheme'] ) ? $parsed['scheme'] . '://' : '';
+		$check_url .= isset( $parsed['user'] ) ? $parsed['user'] . ($parsed['pass'] ? ':' . $parsed['pass'] : '') . '@' : '';
+		$check_url .= isset( $parsed['host'] ) ? $parsed['host'] : '';
+		$check_url .= isset( $parsed['port'] ) ? ':' . $parsed['port'] : '';
+		$check_url .= isset( $parsed['path'] ) ? $parsed['path'] : '';
+		if ( !in_array( $check_url, $valid_requests ) ) {
+			csajax_debug_message( 'Invalid domain - ' . $request_url . ' is not included in valid request domain' );
+			exit;
+		}
+	}
+}
+
+// append query string for GET requests
+if ( $request_method == 'GET' && count( $request_params ) > 0 && (!array_key_exists( 'query', $p_request_url ) || empty( $p_request_url['query'] ) ) ) {
+	$request_url .= '?' . http_build_query( $request_params );
+}
+
+
+// let the request begin
+$ch = curl_init( $request_url );
+curl_setopt( $ch, CURLOPT_HTTPHEADER, $request_headers );   // (re-)send headers
+curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );	 // return response
+curl_setopt( $ch, CURLOPT_HEADER, true );	   // enabled response headers
+// add data for POST, PUT or DELETE requests
+if ( 'POST' == $request_method ) {
+	$post_data = is_array( $request_params ) ? http_build_query( $request_params ) : $request_params;
+
+    $has_files = false;
+    $file_params = array();
+
+    foreach ($_FILES as $f => $file) {
+        if($file['size']){
+            $file_params[$f] = '@'. $file['tmp_name'] .";type=". $file['type'];
+            $has_files = true;
+        }
     }
-  }
-  ?>
+
+    if($isMultiPart || $has_files){
+        foreach(explode("&",$post_data) as $i => $param) {
+            $params = explode("=", $param);
+            $xvarname = $params[0];
+            if (!empty($xvarname))
+                $file_params[$xvarname] = $params[1];
+        }
+    }
+
+	curl_setopt( $ch, CURLOPT_POST, true );
+	curl_setopt( $ch, CURLOPT_POSTFIELDS,  $isMultiPart || $has_files ? $file_params : $post_data );
+} elseif ( 'PUT' == $request_method || 'DELETE' == $request_method ) {
+	curl_setopt( $ch, CURLOPT_CUSTOMREQUEST, $request_method );
+	curl_setopt( $ch, CURLOPT_POSTFIELDS, $request_params );
+}
+
+// retrieve response (headers and content)
+$response = curl_exec( $ch );
+curl_close( $ch );
+
+// split response to header and content
+list($response_headers, $response_content) = preg_split( '/(\r\n){2}/', $response, 2 );
+
+// (re-)send the headers
+$response_headers = preg_split( '/(\r\n){1}/', $response_headers );
+foreach ( $response_headers as $key => $response_header ) {
+	// Rewrite the `Location` header, so clients will also use the proxy for redirects.
+	if ( preg_match( '/^Location:/', $response_header ) ) {
+		list($header, $value) = preg_split( '/: /', $response_header, 2 );
+		$response_header = 'Location: ' . $_SERVER['REQUEST_URI'] . '?csurl=' . $value;
+	}
+	if ( !preg_match( '/^(Transfer-Encoding):/', $response_header ) ) {
+		header( $response_header, false );
+	}
+}
+
+// finally, output the content
+print( $response_content );
+
+function csajax_debug_message( $message )
+{
+	if ( true == CSAJAX_DEBUG ) {
+		print $message . PHP_EOL;
+	}
+}
