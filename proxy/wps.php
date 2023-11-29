@@ -192,7 +192,7 @@ $htmlcode = <<<ENDHTML
 </html>
 ENDHTML;
 
-$url = substr($_SERVER["REQUEST_URI"], strlen($_SERVER["SCRIPT_NAME"]) + 1);
+$url = $_GET["url"];
 if (empty($url)) die($htmlcode);
 
 if (strpos($url, "//") === 0) $url = "http:" . $url; //Assume that any supplied URLs starting with // are HTTP URLs.
