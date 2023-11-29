@@ -270,10 +270,10 @@ if (isset($_POST["miniProxyFormAction"])) {
     unset($queryParams["miniProxyFormAction"]);
     $url = $formAction . "?" . http_build_query($queryParams);
   } else {
-    $url = $_GET["url"];
+    $url = substr($_SERVER["REQUEST_URI"], strlen($_SERVER["SCRIPT_NAME"]) + 3);
   }
 }
-$url = urldecode($_GET["url"]);
+$url = urldecode(substr($_SERVER["REQUEST_URI"], strlen($_SERVER["SCRIPT_NAME"]) + 3));
 
 
 if (empty($url)) {
