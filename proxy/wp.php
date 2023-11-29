@@ -302,13 +302,13 @@ if (empty($url)) {
                     <input class=\"input\" id=\"site\" type=\"text\" placeholder=\"https://example.com\">
                 </div>
                 <button id=\"submit\" type=\"submit\">Search</button><br><br>
-                <a href=\"index.php?https://instagram.com/$instagram\">
+                <a href=\"wp.php?https://instagram.com/$instagram\">
                     <img class=\"icon\" src=\"$instagram_path\" alt=\"Instagram $brand\">
                 </a>
-                <a href=\"index.php?https://t.me/$telegram\">
+                <a href=\"wp.php?https://t.me/$telegram\">
                     <img class=\"icon\" src=\"$telegram_path\" alt=\"Telegram $brand\">
                 </a>
-                <a href=\"index.php?https://youtube.com/c/$youtube\">
+                <a href=\"wp.php?https://youtube.com/c/$youtube\">
                     <img class=\"icon\" src=\"$youtube_path\" alt=\"Youtube $brand\">
                 </a>
             </div>
@@ -321,9 +321,9 @@ if (empty($url)) {
             event.preventDefault();
             var inputValue = document.getElementById('site').value;
             if (inputValue) {
-                window.location.href = 'index.php?' + encodeURIComponent(inputValue);
+                window.location.href = 'wp.php?' + encodeURIComponent(inputValue);
             } else {
-                window.location.href = 'index.php?https://github.com/imHexCrypter';
+                window.location.href = 'wp.php?https://github.com/imHexCrypter';
             }
         }
     </script>
