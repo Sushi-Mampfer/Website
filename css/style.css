@@ -1,15 +1,56 @@
+html {
+	width: 100%;
+    height: 100%;
+}
+
 body {
 	background-image: url('https://images.unsplash.com/photo-1485470733090-0aae1788d5af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1517&q=80');
 	background-position: center;
 	background-size: cover;
-	width: 100vw;
+	width: 100%;
+	height: auto;
 	margin: 0;
-	padding: 10px;
+	padding: 0;
 }
 header {
+	border-radius: 20px;
+	margin: 10px;
 	padding: 10px;
-	width: calc(100vw - 60px);
+	width: calc(100% - 40px);
 	background-color: rgba(0, 0, 0, 0.15);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
+}
+nav {
+	width: 100%;
+	height: 10vh;
+}
+nav > ul {
+	height: 100%;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+nav > ul > :first-child {
+	float: left;
+}
+nav > ul > :not(:first-child) {
+	float: right;
+}
+nav > ul > li {
+	height: 100%;
+}
+nav > ul > li > a {
+	display: block;
+	height: 100%;
+	width: 10vh;
+	text-decoration: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+nav > ul > li > a > p {
+	margin: 0;
+	width: 100%;
+	text-align: center;
 }
