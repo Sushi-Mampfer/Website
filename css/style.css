@@ -39,11 +39,12 @@ nav > ul > :not(:first-child) {
 }
 nav > ul > li {
 	height: 100%;
+	width: 15vh;
 }
 nav > ul > li > a {
 	display: block;
 	height: 100%;
-	width: 10vh;
+	width: 100%;
 	text-decoration: none;
 	display: flex;
 	justify-content: center;
