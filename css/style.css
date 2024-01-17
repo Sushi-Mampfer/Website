@@ -1,5 +1,7 @@
 * {
 	color: #fff;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    font-weight: 300;
 }
 html {
 	width: 100%;
@@ -11,8 +13,6 @@ html::-webkit-scrollbar {
 	display: none;
 }
 body {
-	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-    font-weight: 300;
 	background-image: url('https://images.unsplash.com/photo-1485470733090-0aae1788d5af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1517&q=80');
 	background-position: center;
 	background-size: cover;
@@ -89,4 +89,8 @@ main > section {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+#home > span {
+	white-space: break-spaces;
+	font-size: 20vh;
 }
