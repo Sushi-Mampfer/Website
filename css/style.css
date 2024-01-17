@@ -1,3 +1,6 @@
+* {
+	color: #fff;
+}
 html {
 	width: 100%;
     height: 100%;
@@ -70,9 +73,6 @@ nav > ul > li > a > p {
 	text-align: center;
 	color: #fff;
 }
-section {
-	height: 1000px;
-}
 main {
 	margin-top: calc(5vh + 40px);
 }
@@ -83,4 +83,10 @@ main > section {
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
 	border-radius: 20px;
+}
+#home {
+	height: calc(100vh - 5vh - 50px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }

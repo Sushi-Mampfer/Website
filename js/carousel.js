@@ -36,6 +36,7 @@ function waitForMs(ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
 
+document.querySelector("#carousel").innerHTML = "";
 carousel(carouselText, document.querySelector("#carousel"));
 
 //https://medium.com/front-end-weekly/how-to-create-typing-effect-in-css-and-js-3252dd807f0a
