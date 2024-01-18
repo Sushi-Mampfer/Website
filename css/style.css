@@ -13,6 +13,8 @@ html::-webkit-scrollbar {
 	display: none;
 }
 body {
+	scroll-padding-top: calc(5vh + 40px);
+	overflow-y: auto;
 	background-image: url('https://images.unsplash.com/photo-1485470733090-0aae1788d5af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1517&q=80');
 	background-position: center;
 	background-size: cover;
@@ -104,4 +106,11 @@ main > section {
 }
 #about > h1 {
 	font-size: 10vh;
+	margin-right: 3vw;
+}
+#about > p {
+	width: 15vw;
+}
+#blog {
+	height: 1000px;
 }
