@@ -22,7 +22,6 @@ body {
 	height: auto;
 	margin: 0;
 	padding: 0;
-	
 }
 header {
 	position: fixed;
@@ -93,4 +92,16 @@ main > section {
 #home > span {
 	white-space: break-spaces;
 	font-size: 20vh;
+}
+#about{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+#about > * {
+	margin: 0;
+	padding: 0;
+}
+#about > h1 {
+	font-size: 10vh;
 }
