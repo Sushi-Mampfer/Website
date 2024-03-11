@@ -118,7 +118,7 @@ main > section {
 	background: none;
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	grid-template-rows: 30vh 30vh;
+	grid-template-rows: 30vh 30vh 10vh;
 	gap: 10px;
 }
 #projects > a {
@@ -146,11 +146,29 @@ main > section {
 	margin-top: 3vh;
 	width: 20vw;
 }
-
-#contact {
-	height: 20vh;
+#projects > :last-child {
+	grid-column: 1 / span 2;
+}
+#projects > a > :last-child {
+	background-color: rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+	height: calc(100% - 20px);
+	width: calc(100% - 20px);
+	border-radius: 20px;
+	padding: 10px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
+	flex: 1;
+}
+#contact {
+	height: 20vh;
+	width: calc(100% - 60px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 20px;
 }
