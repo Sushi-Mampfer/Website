@@ -172,7 +172,7 @@ main > section {
 	flex: 1;
 }
 #contact {
-	height: 20vh;
+	height: 25vh;
 	width: calc(100% - 60px);
 	display: flex;
 	align-items: center;
