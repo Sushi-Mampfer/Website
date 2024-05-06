@@ -234,7 +234,7 @@ main > section {
 		height: calc(25vh + 20px);
 	}
 	.out {
-		scroll-padding-top: calc(25vh + 40px);
+		scroll-padding-top: calc(25vh + 40px) !important;
 	}
 	.out > body > main {
 		margin-top: calc(25vh + 40px);
