@@ -235,7 +235,7 @@ main > section {
 		padding: 20px;
 	}
 	.out > body > header {
-		height: calc(25vh + 20px);
+		height: calc(20vh + 20px);
 	}
 	.out {
 		scroll-padding-top: calc(25vh + 40px) !important;
