@@ -217,7 +217,7 @@ main > section {
 		float: none;
 	    	display: block;
     		text-align: left;
-		height: 20%;
+		height: 25%;
 		width: 10vh;
 	}
 	:not(.out) > body > header > nav > ul > *:not(:first-child):not(.icon) {display: none;}
