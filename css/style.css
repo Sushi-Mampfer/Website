@@ -151,6 +151,9 @@ main > section {
 #projects > a > div > * {
 	margin: 0;
 }
+#projects > a > div > h1 {
+	text-align: center;
+}
 #projects > a > div > p {
 	margin-top: 3vh;
 	width: 20vw;
