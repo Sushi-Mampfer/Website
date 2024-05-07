@@ -62,7 +62,7 @@ nav > ul > :not(:first-child) {
 }
 nav > ul > li {
 	height: 100%;
-	width: calc(20vh + 20px);
+	width: calc(30vh + 20px);
 	
 }
 nav > ul > li > a {
