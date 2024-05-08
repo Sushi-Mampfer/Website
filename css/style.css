@@ -62,7 +62,7 @@ nav > ul > :not(:first-child) {
 }
 nav > ul > li {
 	height: 100%;
-	width: calc(15vh + 20px);
+	width: calc(20vh + 20px);
 	
 }
 nav > ul > li > a {
@@ -79,6 +79,7 @@ nav > ul > li > a > p {
 	width: 100%;
 	text-align: center;
 	color: #fff;
+	white-space: nowrap;
 }
 main {
 	margin-top: calc(5vh + 40px);
@@ -150,6 +151,9 @@ main > section {
 #projects > a > div > * {
 	margin: 0;
 }
+#projects > a > div > h1 {
+	text-align: center;
+}
 #projects > a > div > p {
 	margin-top: 3vh;
 	width: 20vw;
@@ -196,15 +200,15 @@ main > section {
 	}
 	#home > span:first-child {
 		display: block;
-		font-size: 7vh;
+		font-size: 5vh;
 		text-align: center;
 		height: 5vh;
 	}
 	#home > span:last-child {
 		display: block;
-		font-size: 13vh;
+		font-size: 7vh;
 		text-align: center;
-		height: 13vh;
+		height: 7vh;
 	}
 	.mobile {
 		display: block;
@@ -213,7 +217,7 @@ main > section {
 		float: none;
 	    	display: block;
     		text-align: left;
-		height: 20%;
+		height: 25%;
 		width: 10vh;
 	}
 	:not(.out) > body > header > nav > ul > *:not(:first-child):not(.icon) {display: none;}
@@ -231,7 +235,7 @@ main > section {
 		padding: 20px;
 	}
 	.out > body > header {
-		height: calc(25vh + 20px);
+		height: calc(20vh + 20px);
 	}
 	.out {
 		scroll-padding-top: calc(25vh + 40px) !important;
