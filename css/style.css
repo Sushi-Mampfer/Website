@@ -40,8 +40,8 @@ header {
 	height: calc(5vh + 20px);
 	width: calc(100% - 20px);
 	background-color: rgba(0, 0, 0, 0.15);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    	backdrop-filter: blur(5px);
+    	-webkit-backdrop-filter: blur(5px);
 	z-index: 99;
 }
 nav {
@@ -89,15 +89,15 @@ main > section {
 	width: calc(100% - 20px);
 	background-color: rgba(0, 0, 0, 0.15);
    	 backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    	-webkit-backdrop-filter: blur(5px);
 	border-radius: 20px;
 }
 #home {
 	height: calc(100vh - 5vh - 50px);
 	display: grid;
 	grid-template-columns: calc(100vw - 20px);
-	padding-top: calc(calc(100vh - 5vh - 50px) / 2 - 10vh);
-	padding-bottom: calc(calc(100vh - 5vh - 50px) / 2 - 10vh);
+	padding-top: calc(calc(100vh - 5vh - 50px) / 2 - 35vh);
+	padding-bottom: calc(calc(100vh - 5vh - 50px) / 2 - 35vh);
 }
 #home > span {
 	white-space: break-spaces;
