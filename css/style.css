@@ -257,6 +257,9 @@ main > section {
 	.mobile {
 		display: block;
 	}
+	nav > ul > li {
+		width: 10vw;
+	}
 	.out > body > header > nav > ul > li {
 		float: none;
 	    	display: block;
