@@ -258,7 +258,7 @@ main > section {
 		display: block;
 	}
 	nav > ul > li {
-		width: 10vw;
+		width: 10vh;
 	}
 	.out > body > header > nav > ul > li {
 		float: none;
