@@ -7,7 +7,7 @@ let ziel = document.getElementById("ziel");
 let ganz = 0;
 let halb = 0;
 let note = 0;
-schnitt.value = 3;
+
 function main() {
     if (ganze.lastChild.value != "") {
         const node = document.createElement("input");
@@ -39,15 +39,27 @@ function main() {
     }
     let totalInputs = ganz.length * 2 + halb.length - 3;
     note /= totalInputs;
+
     if (note != "" && !isNaN(note)) {
         schnitt.value = note.toFixed(2);
         noten.value = totalInputs / 2;
     }
+    note = schnitt.value;
+    totalInputs = noten.value * 2;
     if (ziel.value != "" && !isNaN(ziel.value)) {
         for (let i = 1; i < 100; i++) {
             if ((ziel.value * (totalInputs / 2 + i) - note * totalInputs / 2) / i <= 6) {
-                min.innerHTML = i + "x ";
+                min.innerHTML = "Ganze: " + i + "x ";
                 min.innerHTML += ((ziel.value * (totalInputs / 2 + i) - note * totalInputs / 2) / i).toFixed(2);
+                break;
+            } else {
+                min.innerHTML = "";
+            }
+        }
+        for (let i = 1; i < 100; i++) {
+            if ((ziel.value * (totalInputs + i) - note * totalInputs) / i <= 6) {
+                min.innerHTML += "<br>Halbe: " + i + "x ";
+                min.innerHTML += ((ziel.value * (totalInputs + i) - note * totalInputs) / i).toFixed(2);
                 break;
             } else {
                 min.innerHTML = "";
