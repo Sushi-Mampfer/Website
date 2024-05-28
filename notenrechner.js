@@ -1,6 +1,7 @@
 let ganze = document.getElementById("ganz");
 let halbe = document.getElementById("halb");
 let schnitt = document.getElementById("schnitt");
+let noten = document.getElementById("noten");
 let min = document.getElementById("minimum");
 let ziel = document.getElementById("ziel");
 let ganz = 0;
@@ -40,10 +41,10 @@ function main() {
     note /= totalInputs;
     if (note != "" && !isNaN(note)) {
         schnitt.innerHTML = note.toFixed(2);
+        noten.innerHTML = totalInputs / 2;
     }
     if (ziel.value != "" && !isNaN(ziel.value)) {
         for (let i = 1; i < 100; i++) {
-//            console.log(ziel.value * (totalInputs / 2 + i) - note * totalInputs / 2);
             if ((ziel.value * (totalInputs / 2 + i) - note * totalInputs / 2) / i <= 6) {
                 min.innerHTML = i + "x ";
                 min.innerHTML += ((ziel.value * (totalInputs / 2 + i) - note * totalInputs / 2) / i).toFixed(2);
