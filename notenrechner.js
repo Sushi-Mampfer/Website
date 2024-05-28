@@ -7,7 +7,7 @@ let ziel = document.getElementById("ziel");
 let ganz = 0;
 let halb = 0;
 let note = 0;
-
+schnitt.value = 3;
 function main() {
     if (ganze.lastChild.value != "") {
         const node = document.createElement("input");
