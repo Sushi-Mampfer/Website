@@ -40,8 +40,8 @@ function main() {
     let totalInputs = ganz.length * 2 + halb.length - 3;
     note /= totalInputs;
     if (note != "" && !isNaN(note)) {
-        schnitt.innerHTML = note.toFixed(2);
-        noten.innerHTML = totalInputs / 2;
+        schnitt.value = note.toFixed(2);
+        noten.value = totalInputs / 2;
     }
     if (ziel.value != "" && !isNaN(ziel.value)) {
         for (let i = 1; i < 100; i++) {
