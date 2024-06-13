@@ -99,22 +99,15 @@
 	function out() {
 		html.classList.toggle("out");
 	}
-	// Get the list and its items
     	var list = document.getElementById('myList');
     	var items = list.getElementsByTagName('li');
     
-    	// Check device width
     	var isMobile = window.innerWidth < 600;
     	
-    	// Reorder items except for the first and last
     	if (isMobile) {
         	for (var i = 1; i < items.length - 1; i++) {
            	list.insertBefore(items[items.length - 2], items[i]);
         	}
-    	} else {
-        	// Reset the order if not mobile
-        	var originalOrder = Array.from(items).reverse();
-        	originalOrder.forEach(item => list.appendChild(item));
     	}
 </script>
 <script>
